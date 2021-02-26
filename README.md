@@ -23,6 +23,11 @@ $ source workenv/bin/activate
 $ pip install -r requirement.txt
 ```
 
+* 啟動
+```
+$ python src/app.py
+```
+
 ## TODO
 
 - [ ] controller / get / post
