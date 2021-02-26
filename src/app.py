@@ -1,12 +1,22 @@
 
-from flask import Flask
-server = Flask(__name__)
+from server import server
 
-@server.route("/sayhello")
-def hello():
-    return "hello"
 
-# curl http://localhost:5000/sayhello
+# middleware
+# https://stackoverflow.com/questions/51691730/flask-middleware-for-specific-route
+from flask import request
+import json
+@server.before_request
+def hook():
+    # request - flask.request
+    print(
+        f"""
+        [{request.method}] [{request.url}] [{request.path}]
+        args: {json.dumps(request.json)}
+        data: {str(request.data)}
+        [{request.endpoint}] 
+        """
+    )
 
 if __name__ == "__main__":
     server.run(host = "0.0.0.0", port = 5000, debug = True)
