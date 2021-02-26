@@ -30,7 +30,7 @@ $ python src/app.py
 
 ## TODO
 
-- [ ] controller / get / post
+- [x] controller / get / post
 - [ ] log
 - [ ] cmd
 - [ ] config
