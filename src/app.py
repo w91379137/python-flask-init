@@ -11,11 +11,11 @@ def hook():
     # request - flask.request
     print(
         f"""
-        [{request.method}]
-        {request.url} {request.path}
-        args: {json.dumps(request.args)}
-        data: {request.data}
-        [{request.endpoint}] """
+        [{request.method}] [{request.url}] [{request.path}]
+        args: {json.dumps(request.json)}
+        data: {str(request.data)}
+        [{request.endpoint}] 
+        """
     )
 
 if __name__ == "__main__":
