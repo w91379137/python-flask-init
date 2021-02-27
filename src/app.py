@@ -37,7 +37,8 @@ def hook():
     print(
         f"""
         [{request.method}] [{request.url}] [{request.path}]
-        args: {json.dumps(request.json)}
+        args: {json.dumps(request.args)}
+        json: {json.dumps(request.json)}
         data: {str(request.data)}
         [{request.endpoint}] 
         """
