@@ -1,6 +1,20 @@
 
-from server import server
 
+# ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+# 對內初始化
+
+from service import main
+
+# log 設定
+from service.getlogger import getlogger
+main.applog = getlogger('app')
+
+main.applog.info('manager start')
+
+# ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+# 對外初始化
+
+from server import server
 
 # middleware
 # https://stackoverflow.com/questions/51691730/flask-middleware-for-specific-route
