@@ -31,6 +31,7 @@ $ python src/app.py
 ## TODO
 
 - [x] controller / get / post
+- [x] middleware
 - [ ] log
 - [ ] cmd
 - [ ] config
