@@ -1,0 +1,3 @@
+
+def githash():    
+    return 'githash'
