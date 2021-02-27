@@ -1,4 +1,10 @@
 
+'''
+
+https://janakiev.com/blog/python-shell-commands/
+
+'''
+
 import os
 
 def githash():
