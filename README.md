@@ -33,7 +33,7 @@ $ python src/app.py
 - [x] controller / get / post
 - [x] middleware
 - [x] log
-- [ ] cmd
+- [x] cmd
 - [ ] config
 - [ ] db
 - [ ] mqtt
