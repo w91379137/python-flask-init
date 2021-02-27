@@ -1,6 +1,14 @@
 
-from server import server
 
+# ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+# 對內初始化
+
+from service import main
+
+# ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+# 對外初始化
+
+from server import server
 
 # middleware
 # https://stackoverflow.com/questions/51691730/flask-middleware-for-specific-route
