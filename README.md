@@ -32,7 +32,7 @@ $ python src/app.py
 
 - [x] controller / get / post
 - [x] middleware
-- [ ] log
+- [x] log
 - [ ] cmd
 - [ ] config
 - [ ] db
