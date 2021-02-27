@@ -5,6 +5,12 @@
 
 from service import main
 
+# log 設定
+from service.getlogger import getlogger
+main.applog = getlogger('app')
+
+main.applog.info('manager start')
+
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
 

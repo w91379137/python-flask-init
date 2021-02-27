@@ -5,6 +5,8 @@ from .singleton import singleton
 @singleton
 class _MainService():
 
+    applog: None
+
     def __init__(self): 
         pass
 
