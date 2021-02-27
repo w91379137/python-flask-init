@@ -34,7 +34,7 @@ $ python src/app.py
 - [x] middleware
 - [x] log
 - [x] cmd
-- [ ] config
+- [x] config
 - [ ] db
 - [ ] mqtt
 - [ ] web

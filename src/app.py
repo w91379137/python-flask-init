@@ -15,6 +15,7 @@ main.applog.info('manager start')
 # 對外初始化
 
 from server import server
+from config import FlaskHost, FlaskPort
 
 # middleware
 # https://stackoverflow.com/questions/51691730/flask-middleware-for-specific-route
@@ -33,4 +34,4 @@ def hook():
     )
 
 if __name__ == "__main__":
-    server.run(host = "0.0.0.0", port = 5000, debug = True)
+    server.run(host = FlaskHost, port = FlaskPort, debug = True)
