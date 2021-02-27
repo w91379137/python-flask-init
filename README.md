@@ -35,6 +35,6 @@ $ python src/app.py
 - [x] log
 - [x] cmd
 - [x] config
-- [ ] db
+- [x] db
 - [ ] mqtt
-- [ ] web
+- [ ] web / [render_template](https://ithelp.ithome.com.tw/articles/10222132) 
