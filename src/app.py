@@ -18,6 +18,10 @@ from service.db_manager import DBManager
 
 main.db = DBManager(server, db_config)
 
+# mqtt 設定
+from service.mqtt_manager import MQTTManager
+main.mqtt = MQTTManager(server, None)
+
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
 
