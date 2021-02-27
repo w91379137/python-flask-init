@@ -1,4 +1,5 @@
 
+from server import server
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對內初始化
@@ -11,10 +12,15 @@ main.applog = getlogger('app')
 
 main.applog.info('manager start')
 
+# db 設定
+from config.db_config import db_config
+from service.db_manager import DBManager
+
+main.db = DBManager(server, db_config)
+
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
 
-from server import server
 from config import FlaskHost, FlaskPort
 
 # middleware
