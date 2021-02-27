@@ -1,6 +1,12 @@
 
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+
+import warnings
+
+# https://github.com/marshmallow-code/flask-marshmallow/issues/53
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    from flask_marshmallow import Marshmallow
 
 from model.text import getTableClass as getTableText, getSchemaClass as getTextSchema
 
