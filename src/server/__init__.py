@@ -11,3 +11,6 @@ server.register_blueprint(status, url_prefix = '/status')
 
 from .controller import text
 server.register_blueprint(text, url_prefix = '/text')
+
+from .controller import mqtt
+server.register_blueprint(mqtt, url_prefix = '/mqtt')

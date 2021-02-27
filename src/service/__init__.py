@@ -5,7 +5,9 @@ from .singleton import singleton
 @singleton
 class _MainService():
 
+    db: None
     applog: None
+    mqtt: None
 
     def __init__(self): 
         pass
