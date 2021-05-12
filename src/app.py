@@ -18,6 +18,9 @@ from service.db_manager import DBManager
 
 main.db = DBManager(server, db_config)
 
+result = main.db.execute('select * from text')
+print(result)
+
 # mqtt 設定
 from config.mqtt_config import mqtt_config
 from service.mqtt_manager import MQTTManager
