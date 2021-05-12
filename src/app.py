@@ -29,23 +29,22 @@ from service.mqtt_manager import MQTTManager
 
 # 計時器 設定
 from flask_apscheduler.scheduler import APScheduler
-from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.triggers.cron import CronTrigger
+from datetime import datetime
 
-scheduler = APScheduler()
-scheduler.init_app(server)
 
-def looptask(): 
-    print("looptask !!!")
+if not server.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    # https://stackoverflow.com/questions/14874782/apscheduler-in-flask-executes-twice
+    # 防止 flask 重整就多出一次
+    scheduler = APScheduler()
+    scheduler.init_app(server)
 
-interval = IntervalTrigger(
-        seconds = 10,
-        start_date='2019-4-24 08:00:00',
-        end_date='2099-4-24 08:00:00',
-        timezone='Asia/Shanghai')
+    def looptask(): 
+        print("looptask !!!", datetime.now())
 
-scheduler.add_job(func=looptask,trigger=interval,id='bak_one')
-
-scheduler.start()
+    trigger = CronTrigger(second = "*/10")
+    scheduler.add_job(func=looptask,trigger=trigger,id='my_trigger',replace_existing=True)
+    scheduler.start()
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
