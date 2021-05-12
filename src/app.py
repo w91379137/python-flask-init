@@ -21,7 +21,7 @@ main.db = DBManager(server, db_config)
 # mqtt 設定
 from config.mqtt_config import mqtt_config
 from service.mqtt_manager import MQTTManager
-main.mqtt = MQTTManager(server, mqtt_config)
+# main.mqtt = MQTTManager(server, mqtt_config)
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
