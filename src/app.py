@@ -26,6 +26,27 @@ from config.mqtt_config import mqtt_config
 from service.mqtt_manager import MQTTManager
 # main.mqtt = MQTTManager(server, mqtt_config)
 
+
+# 計時器 設定
+from flask_apscheduler.scheduler import APScheduler
+from apscheduler.triggers.interval import IntervalTrigger
+
+scheduler = APScheduler()
+scheduler.init_app(server)
+
+def looptask(): 
+    print("looptask !!!")
+
+interval = IntervalTrigger(
+        seconds = 10,
+        start_date='2019-4-24 08:00:00',
+        end_date='2099-4-24 08:00:00',
+        timezone='Asia/Shanghai')
+
+scheduler.add_job(func=looptask,trigger=interval,id='bak_one')
+
+scheduler.start()
+
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
 
