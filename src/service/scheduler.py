@@ -17,6 +17,8 @@ class Scheduler:
     def start(self):
         self.scheduler.start()
 
+    # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
+
     def getCronTrigger(self, *args, **kwargs):
         # 參數 second = "*/10"
         # https://stackoverflow.com/questions/3136915/passing-all-arguments-of-a-function-to-another-function
@@ -25,12 +27,9 @@ class Scheduler:
 
     def addJob(self, *args, **kwargs):
         self.scheduler.add_job(**kwargs)
-
-    # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
-    def createbackup(self, func):
-        trigger = self.getCronTrigger(second = "*/10")
-        self.addJob(
-            func = func, 
-            trigger = trigger, 
-            id = 'my_trigger',
-            replace_existing = True)
+        # scheduler.addJob(
+        #     func = func, 
+        #     trigger = trigger,
+        #     id = 'my_trigger',
+        #     replace_existing = True)
+        

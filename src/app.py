@@ -28,13 +28,20 @@ from service.mqtt_manager import MQTTManager
 
 # 計時器 設定
 from service.scheduler import Scheduler
-main.scheduler = Scheduler(server)
+scheduler = Scheduler(server)
+main.scheduler = scheduler
 
 from datetime import datetime
 def looptask():
     print("looptask !!!", datetime.now())
 
-main.scheduler.createbackup(looptask)
+trigger = scheduler.getCronTrigger(second = "*/10")
+scheduler.addJob(
+    func = looptask, 
+    trigger = trigger,
+    id = 'test',
+    replace_existing = True)
+
 main.scheduler.start()
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
