@@ -19,7 +19,7 @@ from service.db_manager import DBManager
 main.db = DBManager(server, db_config)
 
 result = main.db.execute('select * from text')
-print(result)
+# print(result)
 
 # mqtt 設定
 from config.mqtt_config import mqtt_config
@@ -27,21 +27,15 @@ from service.mqtt_manager import MQTTManager
 # main.mqtt = MQTTManager(server, mqtt_config)
 
 # 計時器 設定
-from flask_apscheduler.scheduler import APScheduler
-from apscheduler.triggers.cron import CronTrigger
+from service.scheduler import Scheduler
+main.scheduler = Scheduler(server)
+
 from datetime import datetime
-
-# https://stackoverflow.com/questions/14874782/apscheduler-in-flask-executes-twice
-# 防止 flask 重整就多出一次 需要使用 flask run
-scheduler = APScheduler()
-scheduler.init_app(server)
-
 def looptask():
     print("looptask !!!", datetime.now())
 
-trigger = CronTrigger(second = "*/10")
-scheduler.add_job(func=looptask,trigger=trigger,id='my_trigger',replace_existing=True)
-scheduler.start()
+main.scheduler.createbackup(looptask)
+main.scheduler.start()
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
