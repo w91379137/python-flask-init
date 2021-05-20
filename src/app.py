@@ -26,25 +26,22 @@ from config.mqtt_config import mqtt_config
 from service.mqtt_manager import MQTTManager
 # main.mqtt = MQTTManager(server, mqtt_config)
 
-
 # 計時器 設定
 from flask_apscheduler.scheduler import APScheduler
 from apscheduler.triggers.cron import CronTrigger
 from datetime import datetime
 
+# https://stackoverflow.com/questions/14874782/apscheduler-in-flask-executes-twice
+# 防止 flask 重整就多出一次 需要使用 flask run
+scheduler = APScheduler()
+scheduler.init_app(server)
 
-if not server.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-    # https://stackoverflow.com/questions/14874782/apscheduler-in-flask-executes-twice
-    # 防止 flask 重整就多出一次
-    scheduler = APScheduler()
-    scheduler.init_app(server)
+def looptask():
+    print("looptask !!!", datetime.now())
 
-    def looptask(): 
-        print("looptask !!!", datetime.now())
-
-    trigger = CronTrigger(second = "*/10")
-    scheduler.add_job(func=looptask,trigger=trigger,id='my_trigger',replace_existing=True)
-    scheduler.start()
+trigger = CronTrigger(second = "*/10")
+scheduler.add_job(func=looptask,trigger=trigger,id='my_trigger',replace_existing=True)
+scheduler.start()
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
@@ -70,3 +67,5 @@ def hook():
 
 if __name__ == "__main__":
     server.run(host = FlaskHost, port = FlaskPort, debug = True)
+else:
+    print(f'other name {__name__}')
