@@ -1,4 +1,4 @@
-source workenv/bin/activate
+source venv/bin/activate
 
 ### [Notice] in windows the path might be the following
 # ```workenv\Scripts\activate.bat```
