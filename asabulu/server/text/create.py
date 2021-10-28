@@ -1,10 +1,11 @@
 
-from service import main
 from flask import request, jsonify
-from ..tool import getValueInArgBody
 import json
 
-def update(id):
+from asabulu.service import main
+from ..tool import getValueInArgBody
+
+def create():
 
     try:
 
@@ -13,20 +14,25 @@ def update(id):
         TextSchema = main.db.TextSchema
 
         # 輸入
-        count = getValueInArgBody(request, 'count')
-        try:
-            count = int(count)
-        except:
-            count = 1
+        value = getValueInArgBody(request, 'value')
+
+        if type(value) is not str:
+            value = '何もありません' # 日文字存檔測試
+
+        # 操作
+        # result = Text.query.filter_by(value = value).all()
 
         try:
-            dao = Text.query.filter_by(id = id).one()
+            dao = Text.query.filter_by(value = value).one()
         except:
             dao = None
         
         if dao is not None:
-            dao.count = count
+            dao.count = dao.count + 1
             dao.update()
+        else:
+            dao = Text(value = value)
+            dao.save_to_db()
 
     except:
         dao = {}
@@ -46,4 +52,3 @@ def update(id):
             "message": message,
         }), status
 
-# http://localhost:5000/text/update/1?count=40

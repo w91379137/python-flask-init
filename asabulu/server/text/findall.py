@@ -1,5 +1,5 @@
 
-from service import main
+from asabulu.service import main
 from flask import request, jsonify
 from ..tool import getValueInArgBody
 import json
@@ -50,6 +50,3 @@ def findall():
             "size": size,
             "total": total,
         }), status
-
-# http://localhost:5000/text/findall
-# http://localhost:5000/text/findall?page=2&size=1

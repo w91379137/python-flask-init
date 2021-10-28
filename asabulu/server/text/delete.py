@@ -1,5 +1,5 @@
 
-from service import main
+from asabulu.service import main
 from flask import request, jsonify
 from ..tool import getValueInArgBody
 import json
@@ -43,4 +43,3 @@ def delete(id):
             "message": message,
         }), status
 
-# http://localhost:5000/text/delete/2

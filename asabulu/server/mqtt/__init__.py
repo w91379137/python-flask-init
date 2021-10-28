@@ -2,7 +2,7 @@
 
 from flask import Blueprint
 
-api = Blueprint('mqtt', __name__)
+blueprint = Blueprint('mqtt', __name__)
 
 '''
 $ curl -X GET \
@@ -10,7 +10,7 @@ $ curl -X GET \
 '''
 
 from .subscribe import subscribe as _subscribe
-@api.route('/subscribe', methods=['GET', 'POST'])
+@blueprint.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():
     return _subscribe(**locals())
 
@@ -21,6 +21,6 @@ $ curl -X GET \
 '''
 
 from .publish import publish as _publish
-@api.route('/publish', methods=['GET', 'POST'])
+@blueprint.route('/publish', methods=['GET', 'POST'])
 def publish():
     return _publish(**locals())

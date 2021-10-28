@@ -1,5 +1,5 @@
 
-from service import main
+from asabulu.service import main
 from flask import request, jsonify
 import json
 
@@ -33,4 +33,3 @@ def read(id):
             "message": message,
         }), status
     
-# http://localhost:5000/text/read/1

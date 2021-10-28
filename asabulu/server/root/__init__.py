@@ -1,7 +1,7 @@
 
 from flask import Blueprint
 
-api = Blueprint('root', __name__)
+blueprint = Blueprint('root', __name__)
 
 '''
 $ curl 'http://localhost:5000/sayhello'
@@ -20,6 +20,6 @@ $ curl -X POST \
 '''
 
 from .sayhello import sayhello as _sayhello
-@api.route('/sayhello', methods=['GET', 'POST'])
+@blueprint.route('/sayhello', methods=['GET', 'POST'])
 def sayhello():
     return _sayhello(**locals())

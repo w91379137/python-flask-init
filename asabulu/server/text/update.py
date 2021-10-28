@@ -1,10 +1,10 @@
 
-from service import main
+from asabulu.service import main
 from flask import request, jsonify
 from ..tool import getValueInArgBody
 import json
 
-def create():
+def update(id):
 
     try:
 
@@ -13,25 +13,20 @@ def create():
         TextSchema = main.db.TextSchema
 
         # 輸入
-        value = getValueInArgBody(request, 'value')
-
-        if type(value) is not str:
-            value = '何もありません' # 日文字存檔測試
-
-        # 操作
-        # result = Text.query.filter_by(value = value).all()
+        count = getValueInArgBody(request, 'count')
+        try:
+            count = int(count)
+        except:
+            count = 1
 
         try:
-            dao = Text.query.filter_by(value = value).one()
+            dao = Text.query.filter_by(id = id).one()
         except:
             dao = None
         
         if dao is not None:
-            dao.count = dao.count + 1
+            dao.count = count
             dao.update()
-        else:
-            dao = Text(value = value)
-            dao.save_to_db()
 
     except:
         dao = {}
@@ -50,6 +45,3 @@ def create():
             "result": result,
             "message": message,
         }), status
-
-# http://localhost:5000/text/create
-# http://localhost:5000/text/create?value=kkk
