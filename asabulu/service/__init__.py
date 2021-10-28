@@ -1,14 +1,16 @@
 
-
+from logging import Logger
+from typing import Any
 from .singleton import singleton
-
+from asabulu.model.config.main_config import MainConfig
 @singleton
 class _MainService():
 
-    db: None
-    applog: None
-    mqtt: None
-    scheduler: None
+    config: MainConfig
+    db: Any
+    applog: Logger
+    mqtt: Any
+    scheduler: Any
 
     def __init__(self): 
         pass

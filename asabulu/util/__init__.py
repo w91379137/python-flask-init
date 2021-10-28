@@ -1,31 +1,35 @@
 
 from flask import Flask, request
 from flask_compress import Compress # type: ignore
-from flask_cors import CORS # type: ignore
+from flask_cors import CORS
+from asabulu.model.config.main_config import MainConfig # type: ignore
 
 from asabulu.service import main
-from asabulu.config import FlaskHost, FlaskPort
+from asabulu.config import Setting
 
 def create_app(test_config = None):
     app = Flask(__name__, template_folder='../../templates', static_folder='../../static')
 
-    flask_configuration(app)
-    init_main_service(app)
-    register_blueprint(app)
+    Setting.config_flask_app(app, test_config)
+    main.config = Setting.get_config(test_config)
+
+    flask_configuration(app, main.config)
+    init_main_service(app, main.config)
+    register_blueprint(app, main.config)
 
     Compress(app)
     CORS(app)
 
     return app
 
-def flask_configuration(app: Flask):
+def flask_configuration(app: Flask, config: MainConfig):
     """
     初始化 flask 相關套件
     """
     
     pass
 
-def init_main_service(app: Flask):
+def init_main_service(app: Flask, config: MainConfig):
     """
     初始化 專案本身 singleton service
     """
@@ -36,14 +40,12 @@ def init_main_service(app: Flask):
     main.applog.info('manager start')
 
     # db 設定
-    from asabulu.config.db_config import db_config
     from asabulu.service.db_manager import DBManager
-
-    main.db = DBManager(app, db_config)
+    main.db = DBManager(app, config.db)
 
     # mqtt 設定
-    from asabulu.config.mqtt_config import mqtt_config
-    from asabulu.service.mqtt_manager import MQTTManager
+    # from asabulu.config.mqtt_config import mqtt_config
+    # from asabulu.service.mqtt_manager import MQTTManager
     # main.mqtt = MQTTManager(server, mqtt_config)
 
     # 計時器 設定
@@ -63,7 +65,7 @@ def init_main_service(app: Flask):
 
     # main.scheduler.start()
 
-def register_blueprint(app: Flask):
+def register_blueprint(app: Flask, config: MainConfig):
 
     from asabulu.server import root
     app.register_blueprint(root, url_prefix = '/')
@@ -95,4 +97,5 @@ def register_blueprint(app: Flask):
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host = FlaskHost, port = FlaskPort, debug = True)
+    config = main.config.server
+    app.run(host = config.host, port = config.port, debug = True)

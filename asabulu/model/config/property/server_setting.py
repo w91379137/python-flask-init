@@ -2,7 +2,7 @@
 from typing import Dict
 from marshmallow import Schema, fields, INCLUDE, post_load
 
-class Server_Schema(Schema):
+class Server_setting_schema(Schema):
 
     class Meta:
         unknown = INCLUDE
@@ -12,9 +12,9 @@ class Server_Schema(Schema):
 
     @post_load
     def post_load(self, data, **kwargs):
-        return Server(data)
+        return Server_setting(data)
 
-class Server():
+class Server_setting():
 
     host = "0.0.0.0"
     port = 5000

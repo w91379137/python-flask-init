@@ -7,3 +7,9 @@ server:
 
 db:
   path: "sqlite:///temp.db"
+  # MySql datebase
+  # path: "mysql://root:123456@localhost:3306/bdo"
+  
+mqtt:
+  host: "localhost"
+  port: 1883

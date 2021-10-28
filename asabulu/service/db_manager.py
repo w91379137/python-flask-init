@@ -1,7 +1,9 @@
 
+from typing import Any
 from flask_sqlalchemy import SQLAlchemy
 
 import warnings
+from asabulu.model.config.property.db_setting import DB_setting
 
 # https://github.com/marshmallow-code/flask-marshmallow/issues/53
 with warnings.catch_warnings():
@@ -14,16 +16,15 @@ from asabulu.model.text import getTableClass as getTableText, getSchemaClass as 
 # 這邊不做 singleton 改由 service 那邊統一實作 因為測試的時候 就不會重複生成
 class DBManager:
 
-    db: None
-    ma: None
+    db: Any
+    ma: Any
 
-    Text: None
-    TextSchema: None
+    Text: Any
+    TextSchema: Any
 
-    def __init__(self, server, db_config):
+    def __init__(self, server, db_config: DB_setting):
 
-        server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = db_config['SQLALCHEMY_TRACK_MODIFICATIONS']
-        server.config['SQLALCHEMY_DATABASE_URI'] = db_config['SQLALCHEMY_DATABASE_URI']
+        server.config['SQLALCHEMY_DATABASE_URI'] = db_config.path
 
         self.db = SQLAlchemy(server)
         self.ma = Marshmallow(server)
