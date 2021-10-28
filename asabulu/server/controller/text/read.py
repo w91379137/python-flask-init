@@ -1,5 +1,5 @@
 
-from service import main
+from asabulu.service import main
 from flask import request, jsonify
 import json
 

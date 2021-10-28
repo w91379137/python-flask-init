@@ -8,7 +8,7 @@ with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     from flask_marshmallow import Marshmallow
 
-from model.text import getTableClass as getTableText, getSchemaClass as getTextSchema
+from asabulu.model.text import getTableClass as getTableText, getSchemaClass as getTextSchema
 
 # @singleton
 # 這邊不做 singleton 改由 service 那邊統一實作 因為測試的時候 就不會重複生成

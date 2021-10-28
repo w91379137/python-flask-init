@@ -5,8 +5,6 @@ api = Blueprint('status', __name__)
 
 '''
 $ curl http://localhost:5000/status/githash
-
-
 '''
 
 from .githash import githash as _githash
