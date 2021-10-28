@@ -8,6 +8,7 @@ class _MainService():
     db: None
     applog: None
     mqtt: None
+    scheduler: None
 
     def __init__(self): 
         pass

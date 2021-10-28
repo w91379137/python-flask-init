@@ -18,10 +18,31 @@ from service.db_manager import DBManager
 
 main.db = DBManager(server, db_config)
 
+result = main.db.execute('select * from text')
+# print(result)
+
 # mqtt 設定
 from config.mqtt_config import mqtt_config
 from service.mqtt_manager import MQTTManager
-main.mqtt = MQTTManager(server, mqtt_config)
+# main.mqtt = MQTTManager(server, mqtt_config)
+
+# 計時器 設定
+from service.scheduler import Scheduler
+scheduler = Scheduler(server)
+main.scheduler = scheduler
+
+from datetime import datetime
+def looptask():
+    print("looptask !!!", datetime.now())
+
+trigger = scheduler.getCronTrigger(second = "*/10")
+scheduler.addJob(
+    func = looptask, 
+    trigger = trigger,
+    id = 'test',
+    replace_existing = True)
+
+main.scheduler.start()
 
 # ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 # 對外初始化
@@ -47,3 +68,5 @@ def hook():
 
 if __name__ == "__main__":
     server.run(host = FlaskHost, port = FlaskPort, debug = True)
+else:
+    print(f'other name {__name__}')

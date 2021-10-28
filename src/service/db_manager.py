@@ -14,6 +14,9 @@ from model.text import getTableClass as getTableText, getSchemaClass as getTextS
 # 這邊不做 singleton 改由 service 那邊統一實作 因為測試的時候 就不會重複生成
 class DBManager:
 
+    db: None
+    ma: None
+
     Text: None
     TextSchema: None
 
@@ -22,11 +25,15 @@ class DBManager:
         server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = db_config['SQLALCHEMY_TRACK_MODIFICATIONS']
         server.config['SQLALCHEMY_DATABASE_URI'] = db_config['SQLALCHEMY_DATABASE_URI']
 
-        db = SQLAlchemy(server)
-        ma = Marshmallow(server)
+        self.db = SQLAlchemy(server)
+        self.ma = Marshmallow(server)
         
-        self.Text = getTableText(db)
-        self.TextSchema = getTextSchema(ma)() # 直接創建物件
+        self.Text = getTableText(self.db)
+        self.TextSchema = getTextSchema(self.ma)() # 直接創建物件
 
-        db.create_all()
+        self.db.create_all()
         
+    def execute(self, cmd):
+        # https://www.maxlist.xyz/2019/11/09/sqlalchemy-sql/
+        result = self.db.engine.execute(cmd).fetchall()
+        return result
