@@ -4,7 +4,7 @@ from flask import request, jsonify
 from ..tool import getValueInArgBody
 import json
 
-def update(id):
+def delete(id):
 
     try:
 
@@ -13,11 +13,9 @@ def update(id):
         TextSchema = main.db.TextSchema
 
         # 輸入
-        count = getValueInArgBody(request, 'count')
-        try:
-            count = int(count)
-        except:
-            count = 1
+
+        # 操作
+        # result = Text.query.filter_by(value = value).all()
 
         try:
             dao = Text.query.filter_by(id = id).one()
@@ -25,8 +23,7 @@ def update(id):
             dao = None
         
         if dao is not None:
-            dao.count = count
-            dao.update()
+            dao.delete()
 
     except:
         dao = {}
@@ -46,4 +43,3 @@ def update(id):
             "message": message,
         }), status
 
-# http://localhost:5000/text/update/1?count=40

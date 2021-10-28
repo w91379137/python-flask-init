@@ -50,6 +50,3 @@ def findall():
             "size": size,
             "total": total,
         }), status
-
-# http://localhost:5000/text/findall
-# http://localhost:5000/text/findall?page=2&size=1

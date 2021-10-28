@@ -98,5 +98,3 @@ def find():
             "count_lower": count_lower,
         }), status
 
-# http://localhost:5000/text/find
-# http://localhost:5000/text/find?count_lower=400&value_like=k

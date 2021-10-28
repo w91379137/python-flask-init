@@ -65,16 +65,16 @@ def init_main_service(app: Flask):
 
 def register_blueprint(app: Flask):
 
-    from asabulu.server.controller import root
+    from asabulu.server import root
     app.register_blueprint(root, url_prefix = '/')
 
-    from asabulu.server.controller import status
+    from asabulu.server import status
     app.register_blueprint(status, url_prefix = '/status')
 
-    from asabulu.server.controller import text
+    from asabulu.server import text
     app.register_blueprint(text, url_prefix = '/text')
 
-    from asabulu.server.controller import mqtt
+    from asabulu.server import mqtt
     app.register_blueprint(mqtt, url_prefix = '/mqtt')
     
     # middleware
