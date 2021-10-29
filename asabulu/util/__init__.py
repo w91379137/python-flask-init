@@ -1,10 +1,10 @@
 
 from flask import Flask, request
 from flask_compress import Compress # type: ignore
-from flask_cors import CORS
+from flask_cors import CORS # type: ignore
 from asabulu.model.config.main_config import MainConfig # type: ignore
 
-from asabulu.service import main
+from asabulu.service import main, db_init_step
 from asabulu.config import Setting
 
 def create_app(test_config = None):
@@ -40,8 +40,8 @@ def init_main_service(app: Flask, config: MainConfig):
     main.applog.info('manager start')
 
     # db 設定
-    from asabulu.service.db_manager import DBManager
-    main.db = DBManager(app, config.db)
+    import asabulu.model # 提前 import 所有 model
+    main.db = db_init_step.on_app(app, config.db)
 
     # mqtt 設定
     # from asabulu.config.mqtt_config import mqtt_config
