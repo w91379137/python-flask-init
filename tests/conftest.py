@@ -1,6 +1,8 @@
 
 # 忽略警告
 import warnings
+
+from asabulu import config
 warnings.filterwarnings("ignore", category = DeprecationWarning)
 
 from flask import Flask
@@ -15,7 +17,7 @@ from asabulu.service import main
 def app():
     app = create_app({
         'TESTING': True,
-        'SQLALCHEMY_DATABASE_URI': 'sqlite:///../../tests/temp.db',
+        'asabulu.db.path': 'sqlite:///../../tests/temp.db',
     })
     yield app
     print('\n○■ app close after test')
@@ -30,13 +32,10 @@ def runner(app: Flask):
 
 @pytest.fixture
 def db(app: Flask):
-    with app.app_context():
 
-        from asabulu.service import db
-        main.db = db.init_app(app)
-        
-        yield main.db
-        
+    yield main.db
+
+    with app.app_context():
         main.db.drop_all()
         main.db.session.commit()
         print('\n○■ db clear after test')

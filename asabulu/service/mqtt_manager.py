@@ -1,5 +1,5 @@
 
-from flask_mqtt import Mqtt
+from flask_mqtt import Mqtt # type: ignore
 
 # https://ithelp.ithome.com.tw/articles/10198250
 

@@ -5,17 +5,17 @@
 
 ## 環境
 
-* python 3.7 以上
+* python 3.9 以上
 ## How to start
 
 * 建立虛擬環境  
 ```
-$ python -m venv workenv
+$ python -m venv venv
 ```
 
 * 開啟虛擬環境
 ```
-$ source workenv/bin/activate
+$ source venv/bin/activate
 ```
 
 * 安裝相依
@@ -25,7 +25,7 @@ $ pip install -r requirement.txt
 
 * 啟動
 ```
-$ python src/app.py
+$ python app.py
 ```
 
 ## TODO
@@ -38,4 +38,5 @@ $ python src/app.py
 - [x] db
 - [x] mqtt
 - [ ] web / [render_template](https://ithelp.ithome.com.tw/articles/10222132) 
-- [ ] test 
+- [x] test 
+- [ ] swagger 
