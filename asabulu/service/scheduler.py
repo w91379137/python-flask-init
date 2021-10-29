@@ -1,7 +1,7 @@
 
 # 計時器 設定
-from flask_apscheduler.scheduler import APScheduler
-from apscheduler.triggers.cron import CronTrigger
+from flask_apscheduler.scheduler import APScheduler # type: ignore
+from apscheduler.triggers.cron import CronTrigger # type: ignore
 
 # https://stackoverflow.com/questions/14874782/apscheduler-in-flask-executes-twice
 # 防止 flask 重整就多出一次 需要使用 flask run
