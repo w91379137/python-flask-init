@@ -6,5 +6,5 @@ ma = Marshmallow()
 
 def execute_raw_sql(cmd):
     # https://www.maxlist.xyz/2019/11/09/sqlalchemy-sql/
-    result = db.engine.execute(cmd).fetchall()
+    result = db.engine.execute(cmd)
     return result

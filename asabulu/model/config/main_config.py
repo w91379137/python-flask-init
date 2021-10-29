@@ -24,3 +24,16 @@ class MainConfig():
     
     def __init__(self, obj: Dict = {}):
         self.server = obj.get('server', self.server)
+        self.db = obj.get('db', self.db)
+
+    def change_with(self, obj: Dict = {}):
+        """
+        db 路徑: asabulu.db.path
+        """
+
+        if type(obj) != dict:
+            return
+
+        self.db.path = obj.get('asabulu.db.path', self.db.path)
+        # print(self.db.path)
+

@@ -26,7 +26,7 @@ class Setting():
         # 自己使用的跟 flask 無關的
         # 會放到 main.config
         
-        config = MainConfig()
+        config: MainConfig = MainConfig()
 
         # 確定是否有 menu.yml
         menu_path = 'asabulu/config/custom/main_config.yml'
@@ -46,5 +46,7 @@ class Setting():
         except Exception as e:
             print(f"Error:{e}")
             raise e
+
+        config.change_with(test_config)
 
         return config
