@@ -2,7 +2,7 @@
 from flask import Flask, request
 from flask_compress import Compress # type: ignore
 from flask_cors import CORS # type: ignore
-from asabulu.model.config.main_config import MainConfig # type: ignore
+from asabulu.model.config.main_config import MainConfig
 
 from asabulu.service import main, db_init_step
 from asabulu.config import Setting
@@ -64,6 +64,15 @@ def init_main_service(app: Flask, config: MainConfig):
     #     replace_existing = True)
 
     # main.scheduler.start()
+
+    # usecase 設定
+    from asabulu.model.text.text_repository_sql_impl import TextRepositorySQLImpl
+    from asabulu.usecase.text.text_create_usecase import TextCreateUsecase, TextCreateUsecaseInjection
+
+    injection = TextCreateUsecaseInjection()
+    injection.textRepository = TextRepositorySQLImpl()
+
+    main.textCreateUsecase = TextCreateUsecase(injection)
 
 def register_blueprint(app: Flask, config: MainConfig):
 

@@ -8,13 +8,13 @@ class Text:
 
     def __init__(
         self,
-        id: int,
-        value: str,
+        id: Optional[int] = None,
+        value: str = "",
         count: int = 0,
         create_time: Optional[datetime] = None,
         update_time: Optional[datetime] = None,
     ):
-        self.id: int = id
+        self.id: Optional[int] = id
         self.value: str = value
         self.count: int = count
         self.create_time: Optional[datetime] = create_time

@@ -1,2 +1,2 @@
 
-import asabulu.model.demo.text
+import asabulu.model.text.text_dao

@@ -1,6 +1,8 @@
 
 from logging import Logger
 from typing import Any
+
+from asabulu.usecase.text.text_create_usecase import TextCreateUsecase
 from .singleton import singleton
 from asabulu.model.config.main_config import MainConfig
 @singleton
@@ -11,6 +13,8 @@ class _MainService():
     applog: Logger
     mqtt: Any
     scheduler: Any
+
+    textCreateUsecase: TextCreateUsecase
 
     def __init__(self): 
         pass

@@ -1,47 +1,30 @@
 
 from flask import request, jsonify
-import json
+
+from asabulu.usecase.text.text_create_usecase import TextCreateUsecaseInput, TextCreateUsecaseOuput
+from ..tool import getValueInArgBody
 
 from asabulu.service import main
-from ..tool import getValueInArgBody
+from asabulu.model.text.text_dao import TextSchema
 
 def create():
 
     try:
+        input = TextCreateUsecaseInput()
+        input.value = getValueInArgBody(request, 'value')
 
-        # 格式
-        Text = main.db.Text
-        TextSchema = main.db.TextSchema
+        output = main.textCreateUsecase.execute(input)
 
-        # 輸入
-        value = getValueInArgBody(request, 'value')
+    except Exception as e:
+        print(e)
+        # raise e
+        output = TextCreateUsecaseOuput()
 
-        if type(value) is not str:
-            value = '何もありません' # 日文字存檔測試
-
-        # 操作
-        # result = Text.query.filter_by(value = value).all()
-
-        try:
-            dao = Text.query.filter_by(value = value).one()
-        except:
-            dao = None
-        
-        if dao is not None:
-            dao.count = dao.count + 1
-            dao.update()
-        else:
-            dao = Text(value = value)
-            dao.save_to_db()
-
-    except:
-        dao = {}
-
-    json = TextSchema.dump(dao)
+    json = TextSchema.dump(output.text)
     # print(json)
 
     success = 'id' in json
-    result = TextSchema.dump(dao)
+    result = json
     message = 'OK' if success else 'Fail'
     status = 200 if success else 400
 

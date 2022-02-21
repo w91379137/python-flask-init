@@ -1,7 +1,9 @@
 from datetime import datetime
-from ...model.base import db, ma
 
-class Text(db.Model):
+from asabulu.domain.text.text import Text
+from ..base import db, ma
+
+class Text_dao(db.Model):
     __tablename__ = 'text'
     
     id = db.Column(db.Integer, primary_key = True)
@@ -36,6 +38,15 @@ class Text(db.Model):
         except:
             db.session.rollback()
 
+    def dao_to_bo(self) -> Text:
+        return Text(
+            id=self.id,
+            value=self.value,
+            count=self.count,
+            create_time=self.create_time,
+            update_time=self.update_time,
+        )
+
 class _TextSchema(ma.Schema):
     class Meta:
         fields = [
@@ -45,3 +56,4 @@ class _TextSchema(ma.Schema):
         ]
 
 TextSchema = _TextSchema()
+
