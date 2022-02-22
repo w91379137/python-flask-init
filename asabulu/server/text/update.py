@@ -1,17 +1,15 @@
 
 from asabulu.service import main
 from flask import request, jsonify
+
+from asabulu.usecase.text.text_update_usecase import TextUpdateUsecaseInput, TextUpdateUsecaseOuput
 from ..tool import getValueInArgBody
 import json
+from asabulu.model.text.text_dao import TextSchema
 
 def update(id):
 
     try:
-
-        # 格式
-        Text = main.db.Text
-        TextSchema = main.db.TextSchema
-
         # 輸入
         count = getValueInArgBody(request, 'count')
         try:
@@ -19,23 +17,22 @@ def update(id):
         except:
             count = 1
 
-        try:
-            dao = Text.query.filter_by(id = id).one()
-        except:
-            dao = None
-        
-        if dao is not None:
-            dao.count = count
-            dao.update()
+        input = TextUpdateUsecaseInput()
+        input.id = id
+        input.count = count
 
-    except:
-        dao = {}
+        output = main.textUpdateUsecase.execute(input)
 
-    json = TextSchema.dump(dao)
+    except Exception as e:
+        print(e)
+        # raise e
+        output = TextUpdateUsecaseOuput()
+
+    json = TextSchema.dump(output.text)
     # print(json)
 
     success = 'id' in json
-    result = TextSchema.dump(dao)
+    result = json
     message = 'OK' if success else 'Fail'
     status = 200 if success else 400
 

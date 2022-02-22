@@ -11,8 +11,8 @@ class TextUpdateUsecaseInjection():
 
 class TextUpdateUsecaseInput():
     id: int
-    value: Optional[str]
-    count: Optional[int]
+    value: Optional[str] = None
+    count: Optional[int] = None
 
 class TextUpdateUsecaseOuput():
     text: Optional[Text] = None
