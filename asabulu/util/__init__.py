@@ -67,12 +67,24 @@ def init_main_service(app: Flask, config: MainConfig):
 
     # usecase 設定
     from asabulu.model.text.text_repository_sql_impl import TextRepositorySQLImpl
-    from asabulu.usecase.text.text_create_usecase import TextCreateUsecase, TextCreateUsecaseInjection
+    injection: object
 
-    injection = TextCreateUsecaseInjection()
-    injection.textRepository = TextRepositorySQLImpl()
+    if True:
+        from asabulu.usecase.text.text_create_usecase import TextCreateUsecase, TextCreateUsecaseInjection
 
-    main.textCreateUsecase = TextCreateUsecase(injection)
+        injection = TextCreateUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textCreateUsecase = TextCreateUsecase(injection)
+
+    if True:
+        from asabulu.usecase.text.text_update_usecase import TextUpdateUsecase, TextUpdateUsecaseInjection
+
+        injection = TextUpdateUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textUpdateUsecase = TextUpdateUsecase(injection)
+
 
 def register_blueprint(app: Flask, config: MainConfig):
 
