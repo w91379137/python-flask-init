@@ -12,14 +12,20 @@ class TextRepositorySQLImpl(TextRepository):
         dao.save_to_db()
         return dao.dao_to_bo()
 
+    def find_by_id(self, id: int) -> Optional[Text]:
+        dao = Text_dao.query.get(id)
+        if dao is None:
+            return None
+        return dao.dao_to_bo()
+
     def find_by_value(self, value: str) -> Optional[Text]:
-        dao: Text_dao = Text_dao.query.filter_by(value = value).first()
+        dao = Text_dao.query.filter_by(value = value).first()
         if dao is None:
             return None
         return dao.dao_to_bo()
 
     def update(self, text: Text) -> Optional[Text]:
-        dao: Text_dao = Text_dao.query.get(text.id)
+        dao = Text_dao.query.get(text.id)
         if dao is None:
             return None
 

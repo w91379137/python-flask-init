@@ -21,16 +21,22 @@ class TextRepositoryMemoryImpl(TextRepository):
         self.id_count += 1
         self.text_list.append(dao)
         return dao
+    
+    def find_by_id(self, id: int) -> Optional[Text]:
+
+        def condition(check_text: Text) -> bool:
+            return check_text.id == id
+
+        iter = filter(condition, self.text_list)
+        return next(iter, None)
 
     def find_by_value(self, value: str) -> Optional[Text]:
 
         def condition(check_text: Text) -> bool:
             return check_text.value == value
 
-        dao = next(filter(condition, self.text_list), None)
-        if dao is None:
-            return None
-        return dao
+        iter = filter(condition, self.text_list)
+        return next(iter, None)
 
     def update(self, text: Text) -> Optional[Text]:
 

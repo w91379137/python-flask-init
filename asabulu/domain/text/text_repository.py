@@ -11,6 +11,10 @@ class TextRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def find_by_id(self, id: int) -> Optional[Text]:
+        raise NotImplementedError
+
+    @abstractmethod
     def find_by_value(self, value: str) -> Optional[Text]:
         raise NotImplementedError
 
