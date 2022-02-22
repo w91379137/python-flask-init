@@ -7,8 +7,8 @@ class Server_setting_schema(Schema):
     class Meta:
         unknown = INCLUDE
 
-    range_api_host = fields.String(default = "0.0.0.0")
-    invoice_api_host = fields.Integer(default = 5000)
+    range_api_host = fields.String(load_default = "0.0.0.0")
+    invoice_api_host = fields.Integer(load_default = 5000)
 
     @post_load
     def post_load(self, data, **kwargs):
