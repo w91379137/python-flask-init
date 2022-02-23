@@ -13,8 +13,8 @@ def test_TextUpdateUsecase():
     aTextRepository = TextRepositoryMemoryImpl()
     injection.textRepository = aTextRepository
 
-    aText = Text(id = 1)
-    aTextRepository.text_list.append(aText)    
+    aText = Text()
+    aTextRepository.create(aText)
     
     aValue = "hello"
     aCount = 100
