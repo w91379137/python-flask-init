@@ -4,7 +4,7 @@ from asabulu.service import main
 from flask import request, jsonify
 
 from asabulu.usecase.text.text_delete_usecase import TextDeleteUsecaseInjection
-from ..tool import getValueInArgBody
+from ..tool import errorPrintHandle, getValueInArgBody
 import json
 
 def delete(id):
@@ -16,8 +16,7 @@ def delete(id):
 
         main.textDeleteUsecase.execute(input)
     except Exception as e:
-        print(f"Error({type(e).__name__}):{e}")
-        # raise e
+        errorPrintHandle(e)
         success = False
 
     result = {}

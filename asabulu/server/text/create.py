@@ -2,7 +2,7 @@
 from flask import request, jsonify
 
 from asabulu.usecase.text.text_create_usecase import TextCreateUsecaseInput, TextCreateUsecaseOuput
-from ..tool import getValueInArgBody
+from ..tool import errorPrintHandle, getValueInArgBody
 
 from asabulu.service import main
 from asabulu.model.text.text_dao import TextSchema
@@ -16,8 +16,7 @@ def create():
         output = main.textCreateUsecase.execute(input)
 
     except Exception as e:
-        print(e)
-        # raise e
+        errorPrintHandle(e)
         output = TextCreateUsecaseOuput()
 
     json = TextSchema.dump(output.text)
