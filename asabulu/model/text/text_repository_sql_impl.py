@@ -19,13 +19,13 @@ class TextRepositorySQLImpl(TextRepository):
         return dao.dao_to_bo()
 
     def find_by_value(self, value: str) -> Optional[Text]:
-        dao = Text_dao.query.filter_by(value = value).first()
+        dao: Optional[Text_dao] = Text_dao.query.filter_by(value = value).first()
         if dao is None:
             return None
         return dao.dao_to_bo()
 
     def update(self, text: Text) -> Optional[Text]:
-        dao = Text_dao.query.get(text.id)
+        dao: Optional[Text_dao] = Text_dao.query.get(text.id)
         if dao is None:
             return None
 
@@ -35,4 +35,8 @@ class TextRepositorySQLImpl(TextRepository):
         return dao.dao_to_bo()
 
     def delete_by_id(self, id: int):
-        raise NotImplementedError
+
+        dao: Optional[Text_dao] = Text_dao.query.get(id)
+        if dao is not None:
+            dao.delete()
+        
