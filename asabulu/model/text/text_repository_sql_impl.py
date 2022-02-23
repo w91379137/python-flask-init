@@ -34,5 +34,5 @@ class TextRepositorySQLImpl(TextRepository):
         dao.update()
         return dao.dao_to_bo()
 
-    def delete_by_id(self, id: str):
+    def delete_by_id(self, id: int):
         raise NotImplementedError

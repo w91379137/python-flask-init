@@ -23,5 +23,5 @@ class TextRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def delete_by_id(self, id: str):
+    def delete_by_id(self, id: int):
         raise NotImplementedError

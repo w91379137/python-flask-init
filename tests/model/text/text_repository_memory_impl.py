@@ -52,5 +52,9 @@ class TextRepositoryMemoryImpl(TextRepository):
         dao.update_time = datetime.now()
         return dao
 
-    def delete_by_id(self, id: str):
-        raise NotImplementedError
+    def delete_by_id(self, id: int):
+
+        def condition(check_text: Text) -> bool:
+            return check_text.id != id
+        
+        self.text_list = list(filter(condition, self.text_list))
