@@ -1,31 +1,31 @@
 
+from flask import jsonify
+
+from asabulu.model.text.text_dao import TextSchema
 from asabulu.service import main
-from flask import request, jsonify
-import json
+from asabulu.usecase.text.text_update_usecase import TextUpdateUsecaseInput, TextUpdateUsecaseOuput
 
 def read(id):
     # https://marshmallow.readthedocs.io/en/3.0/examples.html
 
     try:
-        # 格式
-        Text = main.db.Text
-        TextSchema = main.db.TextSchema
+        input = TextUpdateUsecaseInput()
+        input.id = id
 
-        # 輸入
+        output = main.textUpdateUsecase.execute(input)
+    except Exception as e:
+        print(e)
+        # raise e
+        output = TextUpdateUsecaseOuput()
 
-        # 操作
-        # dao = Text.query.get(id)
-        dao = Text.query.filter_by(id = id).one()
-    except:
-        dao = {}
-
-    json = TextSchema.dump(dao)
+    json = TextSchema.dump(output.text)
+    # print(json)
 
     success = 'id' in json
-    result = TextSchema.dump(dao)
-    message = 'OK' if success else 'Not found'
+    result = json
+    message = 'OK' if success else 'Fail'
     status = 200 if success else 400
-    
+
     return jsonify(
         {
             "success": success, 

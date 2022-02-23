@@ -3,6 +3,7 @@ from logging import Logger
 from typing import Any
 
 from asabulu.usecase.text.text_create_usecase import TextCreateUsecase
+from asabulu.usecase.text.text_read_usecase import TextReadUsecase
 from asabulu.usecase.text.text_update_usecase import TextUpdateUsecase
 from .singleton import singleton
 from asabulu.model.config.main_config import MainConfig
@@ -17,6 +18,7 @@ class _MainService():
 
     textCreateUsecase: TextCreateUsecase
     textUpdateUsecase: TextUpdateUsecase
+    textReadUsecase: TextReadUsecase
 
     def __init__(self): 
         pass

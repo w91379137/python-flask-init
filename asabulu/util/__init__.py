@@ -86,6 +86,15 @@ def init_main_service(app: Flask, config: MainConfig):
         main.textUpdateUsecase = TextUpdateUsecase(injection)
 
 
+    if True:
+        from asabulu.usecase.text.text_read_usecase import TextReadUsecase, TextReadUsecaseInjection
+
+        injection = TextReadUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textReadUsecase = TextReadUsecase(injection)
+
+
 def register_blueprint(app: Flask, config: MainConfig):
 
     from asabulu.server import root
