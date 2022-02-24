@@ -16,7 +16,7 @@ class TextCreateUsecaseInput():
     value: str
 
 # 一次性輸出
-class TextCreateUsecaseOuput():
+class TextCreateUsecaseOutput():
     text: Optional[Text] = None
 
 # 意外輸出
@@ -28,7 +28,7 @@ class TextCreateUsecase():
     def __init__(self, injection: TextCreateUsecaseInjection) -> None:
         self.textRepository = injection.textRepository
         
-    def execute(self, input: TextCreateUsecaseInput) -> TextCreateUsecaseOuput:
+    def execute(self, input: TextCreateUsecaseInput) -> TextCreateUsecaseOutput:
 
         value = input.value
         if type(value) is not str:
@@ -42,7 +42,7 @@ class TextCreateUsecase():
             text = Text(value = value)
             text = self.textRepository.create(text)
 
-        output = TextCreateUsecaseOuput()
+        output = TextCreateUsecaseOutput()
         output.text = text
         
         return output

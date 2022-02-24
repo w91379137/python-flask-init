@@ -4,7 +4,7 @@ from flask import jsonify
 from asabulu.model.text.text_dao import TextSchema
 from asabulu.server.tool import errorPrintHandle
 from asabulu.service import main
-from asabulu.usecase.text.text_update_usecase import TextUpdateUsecaseInput, TextUpdateUsecaseOuput
+from asabulu.usecase.text.text_update_usecase import TextUpdateUsecaseInput, TextUpdateUsecaseOutput
 
 def read(id):
     # https://marshmallow.readthedocs.io/en/3.0/examples.html
@@ -16,7 +16,7 @@ def read(id):
         output = main.textUpdateUsecase.execute(input)
     except Exception as e:
         errorPrintHandle(e)
-        output = TextUpdateUsecaseOuput()
+        output = TextUpdateUsecaseOutput()
 
     json = TextSchema.dump(output.text)
     # print(json)

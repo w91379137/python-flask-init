@@ -14,7 +14,7 @@ class TextUpdateUsecaseInput():
     value: Optional[str] = None
     count: Optional[int] = None
 
-class TextUpdateUsecaseOuput():
+class TextUpdateUsecaseOutput():
     text: Optional[Text] = None
 
 @unique
@@ -33,7 +33,7 @@ class TextUpdateUsecase():
     def __init__(self, injection: TextUpdateUsecaseInjection) -> None:
         self.textRepository = injection.textRepository
 
-    def execute(self, input: TextUpdateUsecaseInput) -> TextUpdateUsecaseOuput:
+    def execute(self, input: TextUpdateUsecaseInput) -> TextUpdateUsecaseOutput:
 
         inputText = self.textRepository.find_by_id(input.id)
         if inputText is None:
@@ -47,7 +47,7 @@ class TextUpdateUsecase():
 
         outputText = self.textRepository.update(inputText)
 
-        output = TextUpdateUsecaseOuput()
+        output = TextUpdateUsecaseOutput()
         output.text = outputText
         
         return output
