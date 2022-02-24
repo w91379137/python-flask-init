@@ -102,6 +102,14 @@ def init_main_service(app: Flask, config: MainConfig):
 
         main.textDeleteUsecase = TextDeleteUsecase(injection)
 
+    if True:
+        from asabulu.usecase.text.text_find_usecase import TextFindUsecase, TextFindUsecaseInjection
+
+        injection = TextFindUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textFindUsecase = TextFindUsecase(injection)
+
 
 def register_blueprint(app: Flask, config: MainConfig):
 

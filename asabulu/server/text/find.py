@@ -1,15 +1,12 @@
 
+from asabulu.domain.text.text_repository import TextFindInput
 from asabulu.service import main
 from flask import request, jsonify
-from ..tool import getValueInArgBody
-import json
+from ..tool import errorPrintHandle, getValueInArgBody
+from asabulu.model.text.text_dao import TextSchema
 
 def find():
     try:
-
-        # 格式
-        Text = main.db.Text
-        TextSchema = main.db.TextSchema
 
         # 輸入
         page = getValueInArgBody(request, 'page')
@@ -45,33 +42,25 @@ def find():
         except:
             count_lower = None
         
-        result = Text.query
+        
+        input = TextFindInput()
+        input.page = page
+        input.size = size
+        input.value_eql = value_eql
+        input.value_like = value_like
+        input.count_eql = count_eql
+        input.count_greater = count_greater
+        input.count_lower = count_lower
 
-        if value_eql is not None:
-            result = result.filter(Text.value == value_eql)
-
-        if value_like is not None:
-            result = result.filter(Text.value.like(f'%{value_like}%'))
-
-        if count_eql is not None:
-            # result = result.filter_by(count = count_eql)
-            result = result.filter(Text.count == count_eql)
-
-        if count_greater is not None:
-            result = result.filter(Text.count > count_greater)
-
-        if count_lower is not None:
-            result = result.filter(Text.count < count_lower)
-
-        result = result.order_by(
-            Text.id.desc()
-        )
-        result = result.paginate(page, per_page = size)
+        output = main.textFindUsecase.execute(input)
 
         success = True
-        items = result.items
-        total = result.total
-    except:
+        items = output.items
+        total = output.total
+
+    except Exception as e:
+        
+        errorPrintHandle(e)
         success = False
         items = []
         total = 0

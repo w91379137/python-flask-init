@@ -4,6 +4,7 @@ from typing import Any
 
 from asabulu.usecase.text.text_create_usecase import TextCreateUsecase
 from asabulu.usecase.text.text_delete_usecase import TextDeleteUsecase
+from asabulu.usecase.text.text_find_usecase import TextFindUsecase
 from asabulu.usecase.text.text_read_usecase import TextReadUsecase
 from asabulu.usecase.text.text_update_usecase import TextUpdateUsecase
 from .singleton import singleton
@@ -21,6 +22,7 @@ class _MainService():
     textUpdateUsecase: TextUpdateUsecase
     textReadUsecase: TextReadUsecase
     textDeleteUsecase: TextDeleteUsecase
+    textFindUsecase: TextFindUsecase
 
     def __init__(self): 
         pass
