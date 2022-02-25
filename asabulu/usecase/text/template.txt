@@ -1,0 +1,28 @@
+
+
+class TextXXXUsecaseInjection():
+
+class TextXXXUsecaseInput():
+
+class TextXXXUsecaseOutput():
+
+@unique
+class TextXXXUsecaseExceptionCode(IntEnum):
+
+class TextXXXUsecaseException(Exception):
+
+    def __init__(self, message: str, code: TextXXXUsecaseExceptionCode) -> None:
+        super().__init__(message)
+        self.code = code
+
+class TextXXXUsecase():
+
+    def __init__(self, injection: TextXXXUsecaseInjection) -> None:
+        raise NotImplementedError
+    
+    def execute(self, input: TextXXXUsecaseInput) -> TextXXXUsecaseOutput:
+        raise NotImplementedError
+
+
+
+# 複製把 TextXXX 取代

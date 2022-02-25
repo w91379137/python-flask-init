@@ -1,38 +1,25 @@
 
+from asabulu.model.text.text_dao import TextSchema
 from asabulu.service import main
 from flask import request, jsonify
-from ..tool import getValueInArgBody
+
+from asabulu.usecase.text.text_delete_usecase import TextDeleteUsecaseInjection
+from ..tool import errorPrintHandle, getValueInArgBody
 import json
 
 def delete(id):
 
+    success = True
     try:
+        input = TextDeleteUsecaseInjection()
+        input.id = id
 
-        # 格式
-        Text = main.db.Text
-        TextSchema = main.db.TextSchema
+        main.textDeleteUsecase.execute(input)
+    except Exception as e:
+        errorPrintHandle(e)
+        success = False
 
-        # 輸入
-
-        # 操作
-        # result = Text.query.filter_by(value = value).all()
-
-        try:
-            dao = Text.query.filter_by(id = id).one()
-        except:
-            dao = None
-        
-        if dao is not None:
-            dao.delete()
-
-    except:
-        dao = {}
-
-    json = TextSchema.dump(dao)
-    # print(json)
-
-    success = 'id' in json
-    result = TextSchema.dump(dao)
+    result = {}
     message = 'OK' if success else 'Fail'
     status = 200 if success else 400
 
@@ -42,4 +29,3 @@ def delete(id):
             "result": result,
             "message": message,
         }), status
-

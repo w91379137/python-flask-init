@@ -1,7 +1,9 @@
 from datetime import datetime
-from ...model.base import db, ma
 
-class Text(db.Model):
+from asabulu.domain.text.text import Text
+from ..base import Base_Dao, db, ma
+
+class Text_dao(db.Model, Base_Dao):
     __tablename__ = 'text'
     
     id = db.Column(db.Integer, primary_key = True)
@@ -19,22 +21,14 @@ class Text(db.Model):
     update_time = db.Column(db.DateTime, onupdate = datetime.now, default = datetime.now)
     """ 更新時間 """
 
-    def save_to_db(self):
-        db.session.add(self)
-        self.try_commit()
-
-    def update(self):
-        self.try_commit()
-
-    def delete(self):
-        db.session.delete(self)
-        self.try_commit()
-
-    def try_commit(self):
-        try:
-            db.session.commit()
-        except:
-            db.session.rollback()
+    def dao_to_bo(self) -> Text:
+        return Text(
+            id=self.id,
+            value=self.value,
+            count=self.count,
+            create_time=self.create_time,
+            update_time=self.update_time,
+        )
 
 class _TextSchema(ma.Schema):
     class Meta:
@@ -45,3 +39,4 @@ class _TextSchema(ma.Schema):
         ]
 
 TextSchema = _TextSchema()
+

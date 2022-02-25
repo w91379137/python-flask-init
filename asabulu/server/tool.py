@@ -11,3 +11,11 @@ def getValueInArgBody(request, key):
         # print(json.dumps(request.args))
         return request.args.get(key)
 
+def errorPrintHandle(e: BaseException):
+    print(f"""
+        API 錯誤:
+        Error({type(e).__name__}):{e}
+    """)
+    
+    # 如果需要看到報錯的地方請打開下一行
+    # raise e

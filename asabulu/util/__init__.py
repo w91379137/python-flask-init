@@ -2,7 +2,7 @@
 from flask import Flask, request
 from flask_compress import Compress # type: ignore
 from flask_cors import CORS # type: ignore
-from asabulu.model.config.main_config import MainConfig # type: ignore
+from asabulu.model.config.main_config import MainConfig
 
 from asabulu.service import main, db_init_step
 from asabulu.config import Setting
@@ -64,6 +64,52 @@ def init_main_service(app: Flask, config: MainConfig):
     #     replace_existing = True)
 
     # main.scheduler.start()
+
+    # usecase 設定
+    from asabulu.model.text.text_repository_sql_impl import TextRepositorySQLImpl
+    injection: object
+
+    if True:
+        from asabulu.usecase.text.text_create_usecase import TextCreateUsecase, TextCreateUsecaseInjection
+
+        injection = TextCreateUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textCreateUsecase = TextCreateUsecase(injection)
+
+    if True:
+        from asabulu.usecase.text.text_update_usecase import TextUpdateUsecase, TextUpdateUsecaseInjection
+
+        injection = TextUpdateUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textUpdateUsecase = TextUpdateUsecase(injection)
+
+
+    if True:
+        from asabulu.usecase.text.text_read_usecase import TextReadUsecase, TextReadUsecaseInjection
+
+        injection = TextReadUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textReadUsecase = TextReadUsecase(injection)
+
+    if True:
+        from asabulu.usecase.text.text_delete_usecase import TextDeleteUsecase, TextDeleteUsecaseInjection
+
+        injection = TextDeleteUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textDeleteUsecase = TextDeleteUsecase(injection)
+
+    if True:
+        from asabulu.usecase.text.text_find_usecase import TextFindUsecase, TextFindUsecaseInjection
+
+        injection = TextFindUsecaseInjection()
+        injection.textRepository = TextRepositorySQLImpl()
+
+        main.textFindUsecase = TextFindUsecase(injection)
+
 
 def register_blueprint(app: Flask, config: MainConfig):
 
