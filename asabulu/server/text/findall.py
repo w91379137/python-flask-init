@@ -1,15 +1,12 @@
 
+from asabulu.domain.text.text_repository import TextFindInput
 from asabulu.service import main
 from flask import request, jsonify
-from ..tool import getValueInArgBody
-import json
+from ..tool import errorPrintHandle, getValueInArgBody
+from asabulu.model.text.text_dao import TextSchema
 
 def findall():
     try:
-
-        # 格式
-        Text = main.db.Text
-        TextSchema = main.db.TextSchema
 
         # 輸入
         page = getValueInArgBody(request, 'page')
@@ -24,14 +21,18 @@ def findall():
         except:
             size = 10
         
-        result = Text.query.order_by(
-            Text.id.desc()
-        ).paginate(page, per_page = size)
+        input = TextFindInput()
+        input.page = page
+        input.size = size
+
+        output = main.textFindUsecase.execute(input)
 
         success = True
-        items = result.items
-        total = result.total
-    except:
+        items = output.items
+        total = output.total
+    except Exception as e:
+        
+        errorPrintHandle(e)
         success = False
         items = []
         total = 0
