@@ -2,7 +2,7 @@
 
 往後建立 flask 參考專案
 
-
+## version 1.1.20220225
 ## 環境
 
 * python 3.9 以上
@@ -39,4 +39,6 @@ $ python app.py
 - [x] mqtt
 - [ ] web / [render_template](https://ithelp.ithome.com.tw/articles/10222132) 
 - [x] test 
-- [ ] swagger 
+- [ ] swagger
+- [x] [ddd](https://github.com/iktakahiro/dddpy)
+- [ ] [pydash](https://github.com/dgilland/pydash)
