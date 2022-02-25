@@ -7,8 +7,10 @@ from asabulu.domain.text.text_repository import TextFindInput, TextFindOutput, T
 
 class TextRepositoryMemoryImpl(TextRepository):
 
-    id_count = 1
-    text_list: List[Text] = []
+    def __init__(self) -> None:
+        super().__init__()
+        self.id_count: int = 1
+        self.text_list: List[Text] = []
 
     def create(self, text: Text) -> Optional[Text]:
         dao = Text(
